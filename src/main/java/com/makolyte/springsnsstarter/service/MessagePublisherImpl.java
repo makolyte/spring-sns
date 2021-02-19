@@ -2,7 +2,7 @@ package com.makolyte.springsnsstarter.service;
 
 import com.makolyte.springsnsstarter.config.AwsProperties;
 import com.makolyte.springsnsstarter.model.EventType;
-import com.makolyte.springsnsstarter.model.MessageBuilder;
+import com.makolyte.springsnsstarter.model.RequestBuilder;
 import com.makolyte.springsnsstarter.model.SnsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class MessagePublisherImpl implements MessagePublisher {
         SnsResponse response = null;
 
         try {
-            PublishRequest request = MessageBuilder.build(
+            PublishRequest request = RequestBuilder.build(
                     awsProperties.getTopicArn(),
                     "Electronics",
                     "LG 65UN7300PUF Alexa Built-In UHD 73 Series 65 4K Smart UHD TV 2020",

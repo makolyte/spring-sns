@@ -9,9 +9,9 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MessageBuilderTest {
+class RequestBuilderTest {
 
-    private MessageBuilder messageBuilder = new MessageBuilder();
+    private RequestBuilder requestBuilder = new RequestBuilder();
 
     @Test
     void buildMessage() {
@@ -21,7 +21,7 @@ class MessageBuilderTest {
         String expectedSeller = "Amazon";
         String expectedNewPrice = "646.99";
 
-        PublishRequest publishRequest = messageBuilder.build(
+        PublishRequest publishRequest = requestBuilder.build(
                 "topicArn",
                 expectedCategory,
                 expectedProductName,
@@ -31,12 +31,12 @@ class MessageBuilderTest {
 
         assertThat(publishRequest.hasMessageAttributes()).isTrue();
         Map<String, MessageAttributeValue> actualAttributes = publishRequest.messageAttributes();
-        assertThat(actualAttributes.get(MessageBuilder.CATEGORY).stringValue()).isEqualTo(expectedCategory);
-        assertThat(actualAttributes.get(MessageBuilder.PRODUCT_NAME).stringValue()).isEqualTo(expectedProductName);
-        assertThat(actualAttributes.get(MessageBuilder.EVENT_TYPE).stringValue()).isEqualTo(expectedEventType.toString());
-        assertThat(actualAttributes.get(MessageBuilder.SELLER).stringValue()).isEqualTo(expectedSeller);
-        assertThat(actualAttributes.get(MessageBuilder.NEW_PRICE).stringValue()).isEqualTo(expectedNewPrice);
-        assertThat(publishRequest.message()).isEqualTo(MessageBuilder.DEFAULT_MESSAGE_BODY);
+        assertThat(actualAttributes.get(RequestBuilder.CATEGORY).stringValue()).isEqualTo(expectedCategory);
+        assertThat(actualAttributes.get(RequestBuilder.PRODUCT_NAME).stringValue()).isEqualTo(expectedProductName);
+        assertThat(actualAttributes.get(RequestBuilder.EVENT_TYPE).stringValue()).isEqualTo(expectedEventType.toString());
+        assertThat(actualAttributes.get(RequestBuilder.SELLER).stringValue()).isEqualTo(expectedSeller);
+        assertThat(actualAttributes.get(RequestBuilder.NEW_PRICE).stringValue()).isEqualTo(expectedNewPrice);
+        assertThat(publishRequest.message()).isEqualTo(RequestBuilder.DEFAULT_MESSAGE_BODY);
         assertThat(publishRequest.topicArn()).isEqualTo("topicArn");
     }
 }

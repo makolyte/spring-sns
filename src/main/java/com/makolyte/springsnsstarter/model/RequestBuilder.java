@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessageBuilder {
+public class RequestBuilder {
     public static final String CATEGORY = "Category";
     public static final String PRODUCT_NAME = "ProductName";
     public static final String EVENT_TYPE = "EventType";
