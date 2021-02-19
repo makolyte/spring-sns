@@ -1,5 +1,7 @@
 package com.makolyte.springsnsstarter.service;
 
+import com.makolyte.springsnsstarter.model.SnsResponse;
+
 public interface MessagePublisher {
-    void publish();
+    SnsResponse publish();
 }
