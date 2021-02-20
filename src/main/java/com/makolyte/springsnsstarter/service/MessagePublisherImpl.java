@@ -1,7 +1,7 @@
 package com.makolyte.springsnsstarter.service;
 
 import com.makolyte.springsnsstarter.config.AwsProperties;
-import com.makolyte.springsnsstarter.model.EventType;
+import com.makolyte.springsnsstarter.model.Message;
 import com.makolyte.springsnsstarter.model.RequestBuilder;
 import com.makolyte.springsnsstarter.model.SnsResponse;
 import org.slf4j.Logger;
@@ -16,8 +16,6 @@ import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
 import software.amazon.awssdk.services.sns.model.SnsException;
 
-import java.math.BigDecimal;
-
 @Service
 public class MessagePublisherImpl implements MessagePublisher {
     private final static Logger LOG = LoggerFactory.getLogger(MessagePublisherImpl.class);
@@ -31,17 +29,11 @@ public class MessagePublisherImpl implements MessagePublisher {
     }
 
     @Override
-    public SnsResponse publish() {
+    public SnsResponse publish(Message message) {
         SnsResponse response = null;
 
         try {
-            PublishRequest request = RequestBuilder.build(
-                    awsProperties.getTopicArn(),
-                    "Electronics",
-                    "LG 65UN7300PUF Alexa Built-In UHD 73 Series 65 4K Smart UHD TV 2020",
-                    EventType.DROP,
-                    "Amazon",
-                    new BigDecimal("646.99"));
+            PublishRequest request = RequestBuilder.build(awsProperties.getTopicArn(), message);
             LOG.info("Request: {}", request);
 
             PublishResponse publishResponse = snsClient.publish(request);

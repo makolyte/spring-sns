@@ -3,7 +3,6 @@ package com.makolyte.springsnsstarter.model;
 import software.amazon.awssdk.services.sns.model.MessageAttributeValue;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,22 +15,21 @@ public class RequestBuilder {
     public static final String DEFAULT_MESSAGE_BODY = "Please see attributes.";
 
 
-    public static PublishRequest build(String topicArn, String category, String productName, EventType eventType,
-                                       String seller, BigDecimal newPrice) {
+    public static PublishRequest build(String topicArn, Message message) {
         Map<String, MessageAttributeValue> attributes = new HashMap<>();
-        attributes.put(CATEGORY, buildAttribute(category, "String"));
-        attributes.put(PRODUCT_NAME, buildAttribute(productName, "String"));
-        attributes.put(EVENT_TYPE, buildAttribute(eventType.toString(), "String"));
-        attributes.put(SELLER, buildAttribute(seller, "String"));
-        attributes.put(NEW_PRICE, buildAttribute(newPrice.toString(), "Number"));
+        attributes.put(CATEGORY, buildAttribute(message.getCategory(), "String"));
+        attributes.put(PRODUCT_NAME, buildAttribute(message.getProductName(), "String"));
+        attributes.put(EVENT_TYPE, buildAttribute(message.getEventType().toString(), "String"));
+        attributes.put(SELLER, buildAttribute(message.getSeller(), "String"));
+        attributes.put(NEW_PRICE, buildAttribute(message.getNewPrice().toString(), "Number"));
 
-        PublishRequest message = PublishRequest.builder()
+        PublishRequest request = PublishRequest.builder()
                 .topicArn(topicArn)
                 .message(DEFAULT_MESSAGE_BODY)
                 .messageAttributes(attributes)
                 .build();
 
-        return message;
+        return request;
     }
 
     private static MessageAttributeValue buildAttribute(String value, String dataType) {

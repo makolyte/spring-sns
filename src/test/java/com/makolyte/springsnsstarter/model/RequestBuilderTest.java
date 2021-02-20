@@ -20,14 +20,10 @@ class RequestBuilderTest {
         EventType expectedEventType = EventType.DROP;
         String expectedSeller = "Amazon";
         String expectedNewPrice = "646.99";
+        Message message = new Message(
+                expectedCategory, expectedProductName, expectedEventType, expectedSeller, new BigDecimal(expectedNewPrice));
 
-        PublishRequest publishRequest = requestBuilder.build(
-                "topicArn",
-                expectedCategory,
-                expectedProductName,
-                expectedEventType,
-                expectedSeller,
-                new BigDecimal(expectedNewPrice));
+        PublishRequest publishRequest = requestBuilder.build("topicArn", message);
 
         assertThat(publishRequest.hasMessageAttributes()).isTrue();
         Map<String, MessageAttributeValue> actualAttributes = publishRequest.messageAttributes();
