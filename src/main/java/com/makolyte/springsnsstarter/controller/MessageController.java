@@ -15,7 +15,8 @@ public class MessageController {
         this.messagePublisher = messagePublisher;
     }
 
-    @PostMapping("/publish")
+    @PostMapping(value = "/publish")
+    @ResponseStatus(HttpStatus.CREATED)
     public SnsResponse publishMessage(@RequestBody Message message) {
         return messagePublisher.publish(message);
     }

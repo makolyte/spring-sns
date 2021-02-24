@@ -9,6 +9,8 @@ public class Message {
     private String seller;
     private BigDecimal newPrice;
 
+    public Message() {}
+
     public Message(String category, String productName, EventType eventType, String seller, BigDecimal newPrice) {
         this.category = category;
         this.productName = productName;
